@@ -20,10 +20,16 @@ In this section, please provide a brief overview of the design of your applicati
 ##### Functionalities
 For each of the following functionalities, please tick the box if you implemented it and describe its input and output in your application:
 
-[x] Brew coffee \
-[ ] Create programme \
-[ ] Delete programme \
-[ ] Book a programme 
+[x] Setting up the Symfony Framework  \
+[x] Link to MySql  \
+[x] Create table program \
+[ ] Validator: Admin check \
+[ ] Validator: User CNP check \
+[ ] Validator: check sehedule \ 
+[ ] Validator: check room max nr \ 
+[ ] Validator: check if its free the room\ 
+[ ] Validator: check user is only in one room \ 
+
 
 ##### Business rules
 Please highlight all the validations and mechanisms you identified as necessary in order to avoid inconsistent states and apply the business logic in your application.
@@ -36,13 +42,16 @@ Please fill in the following table with the technologies you used in order to wo
 | Name | Choice |
 | ------ | ------ |
 | Operating system (OS) | Windows 10 |
-| Database  | MySQL 5.7.33|
+| Database  | MySQL 8.0 |
 | Web server| Symfony 5.2.6 |
 | PHP | 8.0.3 |
 | IDE | Visual Studio Code |
 
 ### Testing
 In this section, please list the steps and/ or tools you've used in order to test the behaviour of your solution.
+ - Postman software
+ - cmd CLI
+ - Firefox browser
 
 ## Feedback
 In this section, please let us know what is your opinion about this experience and how we can improve it:
