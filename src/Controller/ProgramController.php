@@ -8,7 +8,6 @@ use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Validator\IsValidCNP;
 
 class ProgramController extends AbstractController
 {
@@ -32,6 +31,7 @@ class ProgramController extends AbstractController
                 }
                 $entityManager->persist($sign_up);
                 $entityManager->flush();
+                return new Response('You was added at training no: '.$_POST['session']);
             }
         }
         return new Response('You are not authorized to register for the course!');
@@ -54,8 +54,13 @@ class ProgramController extends AbstractController
                 } else {
                     return new Response('The data are not enough');
                 }
-                $entityManager->persist($program);
-                $entityManager->flush();
+                $programs = $this->getDoctrine()->getRepository(Program::class)->findAll();
+                if (overlapingFree($program, $programs)){
+                    $entityManager->persist($program);
+                    $entityManager->flush();
+                } else {
+                    return new Response('It is overlaping another program in room: '.$program->getRoomName());
+                }
 
                 return new Response('The program was saved with the ID:  '.$program->getId());
             } else {
