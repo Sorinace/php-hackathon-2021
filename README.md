@@ -23,19 +23,22 @@ For each of the following functionalities, please tick the box if you implemente
 [x] Setting up the Symfony Framework  \
 [x] Link to MySql  \
 [x] Create table program \
-[ ] Validator: Admin check \
-[ ] Validator: User CNP check \
+[x] Admin check by a code \
+[x] Validator: User CNP check \
 [ ] Validator: check sehedule \ 
 [ ] Validator: check room max nr \ 
-[ ] Validator: check if its free the room\ 
+[ ] Validator: check if its free the room \ 
 [ ] Validator: check user is only in one room \ 
 
 
 ##### Business rules
 Please highlight all the validations and mechanisms you identified as necessary in order to avoid inconsistent states and apply the business logic in your application.
+- only the admin can add a program
+  in POST you add a "admin" key with value "246080d25b4b620f925664c1147185f1", in order to work
 
 ##### 3rd party libraries (if applicable)
 Please give a brief review of the 3rd party libraries you used and how/ why you've integrated them into your project.
+ - Check the CNP code: https://github.com/cristian-datu/CNP/blob/master/cnp.php
 
 ##### Environment
 Please fill in the following table with the technologies you used in order to work at your application. Feel free to add more rows if you want us to know about anything else you used.

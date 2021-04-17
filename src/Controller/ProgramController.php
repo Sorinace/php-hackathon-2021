@@ -3,37 +3,67 @@
 namespace App\Controller;
 
 use App\Entity\Program;
+use App\Entity\SignUp;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Validator\IsValidCNP;
 
 class ProgramController extends AbstractController
 {
-    #[Route('/program', name: 'program')]
-    public function createProgram(): Response
-    {
-        $entityManager = $this->getDoctrine()->getManager();
+    #[Route('/user', name: 'user_program')]
+    public function user(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if(isset($_POST['cnp']) && validCNP($_POST['cnp'])) {
 
-        $program = new Program();
-        $program->setStart(new DateTime("04/19/2021 14:00:00"));
-        $program->setEnd(new DateTime("04/19/2021 15:00:00"));
-        $program->setMaxUsers(21);
-        $program->setRoomName('Room1');
+                $entityManager = $this->getDoctrine()->getManager();
 
-        // tell Doctrine you want to save the Program
-        $entityManager->persist($program);
-
-        // actually executes
-        $entityManager->flush();
-
-        return new Response('S-a salvat programul cu ID-ul: '.$program->getId());
+                $sign_up = new SignUp();
+                if (isset($_POST['cnp']) && isset($_POST['session'])){
+                    $sign_up->setCnp(1);
+                    $program = $this->getDoctrine()
+                    ->getRepository(Program::class)
+                    ->find($_POST['session']);
+                    $sign_up->addSession( $program);
+                    $sign_up->setVnp($_POST['cnp']);
+                } else {
+                    return new Response('The data are not enough');
+                }
+                $entityManager->persist($sign_up);
+                $entityManager->flush();
+            }
+        }
+        return new Response('You are not authorized to register for the course!');
     }
-    // public function index(): Response
-    // {
-    //     return $this->json([
-    //         'message' => 'Welcome to your new controller!',
-    //         'path' => 'src/Controller/ProgramController.php',
-    //     ]);
-    // }
+
+    #[Route('/program', name: 'program')]
+    public function createProgram(): Response{
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if(isset($_POST['admin']) && $_POST['admin'] == '246080d25b4b620f925664c1147185f1') {
+
+                $entityManager = $this->getDoctrine()->getManager();
+                
+                $program = new Program();
+                if (isset($_POST['start']) && isset($_POST['end']) && isset($_POST['max']) && isset($_POST['room']) && isset($_POST['name'])){
+                    $program->setStart(new DateTime($_POST['start']));
+                    $program->setEnd(new DateTime($_POST['end']));
+                    $program->setMaxUsers($_POST['max']);
+                    $program->setRoomName($_POST['room']);
+                    $program->setName($_POST['name']);
+                } else {
+                    return new Response('The data are not enough');
+                }
+                $entityManager->persist($program);
+                $entityManager->flush();
+
+                return new Response('The program was saved with the ID:  '.$program->getId());
+            } else {
+                return new Response('You are not authorized to add an program!');
+            }
+
+        } else {
+            return new Response('Is not a method '.$_SERVER['REQUEST_METHOD']);
+        }
+    }
 }
