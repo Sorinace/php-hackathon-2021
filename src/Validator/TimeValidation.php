@@ -1,21 +1,17 @@
 <?php
-/******************************************************************************/
-/****                         Validatori de timp                           ****/
-/******************************************************************************/
 /**
- *
  * @param string $program_nou
  * @return boolean
  */
-function overlapingFree($program, $programs) {
-  foreach ($programs as $item) {
-    if ($program->getRoomName() == $item->getRoomName()){
-      if ($program->getStart->format('m/d/Y') == $item->getStart->format('m/d/Y')){
+function overlaping($program_new, $program) {
+  if ($program_new->getRoomName() == $program->getRoomName()) {
+      // if have the same room check the schedule
+      if (($program_new->getEnd() <= $program->getStart()) || ($program_new->getStart() >= $program->getEnd())) {
+        return false;
+      } else {
         return true;
       }
     }
-
-  }
   return false;
 }
 

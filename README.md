@@ -25,7 +25,7 @@ For each of the following functionalities, please tick the box if you implemente
 [x] Create table program \
 [x] Admin check by a code \
 [x] Validator: User CNP check \
-[ ] Validator: check sehedule \ 
+[x] Validator: check sehedule \ 
 [ ] Validator: check room max nr \ 
 [ ] Validator: check if its free the room \ 
 [ ] Validator: check user is only in one room \ 
@@ -60,12 +60,20 @@ In this section, please list the steps and/ or tools you've used in order to tes
 In this section, please let us know what is your opinion about this experience and how we can improve it:
 
 1. Have you ever been involved in a similar experience? If so, how was this one different?
+- no
 2. Do you think this type of selection process is suitable for you?
+- maybe, is not my dear one
 3. What's your opinion about the complexity of the requirements?
+- fair enough
 4. What did you enjoy the most?
+- 
 5. What was the most challenging part of this anti hackathon?
+- I didn't know the PHP frameworks, and was the bigest mistake
 6. Do you think the time limit was suitable for the requirements?
+- not for "clean code", anyway for the JUNIOR is to much
 7. Did you find the resources you were sent on your email useful?
+- yes
 8. Is there anything you would like to improve to your current implementation?
+-
 9. What would you change regarding this anti hackathon?
 

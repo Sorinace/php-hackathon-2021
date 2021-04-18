@@ -29,6 +29,7 @@ class ProgramController extends AbstractController
                 } else {
                     return new Response('The data are not enough');
                 }
+                // check for being in same time in other room
                 $entityManager->persist($sign_up);
                 $entityManager->flush();
                 return new Response('You was added at training no: '.$_POST['session']);
@@ -55,13 +56,13 @@ class ProgramController extends AbstractController
                     return new Response('The data are not enough');
                 }
                 $programs = $this->getDoctrine()->getRepository(Program::class)->findAll();
-                if (overlapingFree($program, $programs)){
-                    $entityManager->persist($program);
-                    $entityManager->flush();
-                } else {
-                    return new Response('It is overlaping another program in room: '.$program->getRoomName());
+                foreach ($programs as $item) {
+                    if (overlaping($program, $item)){
+                        return new Response('It is overlaping another program');
+                    } 
                 }
-
+                $entityManager->persist($program);
+                $entityManager->flush();
                 return new Response('The program was saved with the ID:  '.$program->getId());
             } else {
                 return new Response('You are not authorized to add an program!');
