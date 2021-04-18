@@ -14,6 +14,7 @@ You have estimated it takes 4 weeks to build this solution. You have 2 days. Goo
 ## Technical documentation
 ### Data and Domain model
 In this section, please describe the main entities you managed to identify, the relationships between them and how you mapped them in the database.
+There are 2 classes which modesl database (Program & SingUp)
 ### Application architecture
 In this section, please provide a brief overview of the design of your application and highlight the main components and the interaction between them.
 ###  Implementation
@@ -26,15 +27,18 @@ For each of the following functionalities, please tick the box if you implemente
 [x] Admin check by a code \
 [x] Validator: User CNP check \
 [x] Validator: check sehedule \ 
+[ ] Validator: check user is only in one room once \ 
 [ ] Validator: check room max nr \ 
 [ ] Validator: check if its free the room \ 
-[ ] Validator: check user is only in one room \ 
+
 
 
 ##### Business rules
 Please highlight all the validations and mechanisms you identified as necessary in order to avoid inconsistent states and apply the business logic in your application.
 - only the admin can add a program
   in POST you add a "admin" key with value "246080d25b4b620f925664c1147185f1", in order to work
+- only users with valid CNP can tate a program - check in IsValidCNP.php
+- overlaping of the time check in TimeValidation.php
 
 ##### 3rd party libraries (if applicable)
 Please give a brief review of the 3rd party libraries you used and how/ why you've integrated them into your project.
@@ -60,20 +64,22 @@ In this section, please list the steps and/ or tools you've used in order to tes
 In this section, please let us know what is your opinion about this experience and how we can improve it:
 
 1. Have you ever been involved in a similar experience? If so, how was this one different?
-- no
+- no, some "pool" feelings maybe
 2. Do you think this type of selection process is suitable for you?
 - maybe, is not my dear one
 3. What's your opinion about the complexity of the requirements?
 - fair enough
 4. What did you enjoy the most?
-- 
+- Was a very interisting experience! I don't know if I enjoy but for sure I learn a lot (not only PHP)
 5. What was the most challenging part of this anti hackathon?
-- I didn't know the PHP frameworks, and was the bigest mistake
+- I didn't know the PHP frameworks, and this was dificult
 6. Do you think the time limit was suitable for the requirements?
-- not for "clean code", anyway for the JUNIOR is to much
+- not for "clean code", anyway for me never stop "cleaning"
 7. Did you find the resources you were sent on your email useful?
-- yes
+- yes, was very good
 8. Is there anything you would like to improve to your current implementation?
--
+- I will start over, and of coure are improvments: 
 9. What would you change regarding this anti hackathon?
+- I would like to try it on JS and MongoDB ... 
+
 

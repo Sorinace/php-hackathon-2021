@@ -29,11 +29,6 @@ class SignUp
      */
     private $session;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $vnp;
-
     public function __construct()
     {
         $this->session = new ArrayCollection();
@@ -44,12 +39,12 @@ class SignUp
         return $this->id;
     }
 
-    public function getCnp(): ?int
+    public function getCnp(): ?string
     {
         return $this->cnp;
     }
 
-    public function setCnp(int $cnp): self
+    public function setCnp(?string $cnp): self
     {
         $this->cnp = $cnp;
 
@@ -76,18 +71,6 @@ class SignUp
     public function removeSession(program $session): self
     {
         $this->session->removeElement($session);
-
-        return $this;
-    }
-
-    public function getVnp(): ?string
-    {
-        return $this->vnp;
-    }
-
-    public function setVnp(?string $vnp): self
-    {
-        $this->vnp = $vnp;
 
         return $this;
     }

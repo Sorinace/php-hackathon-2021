@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Program;
 use App\Entity\SignUp;
+use App\Entity\SignUpProgram;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,19 +21,27 @@ class ProgramController extends AbstractController
 
                 $sign_up = new SignUp();
                 if (isset($_POST['cnp']) && isset($_POST['session'])){
-                    $sign_up->setCnp(1);
                     $program = $this->getDoctrine()
                     ->getRepository(Program::class)
                     ->find($_POST['session']);
                     $sign_up->addSession( $program);
-                    $sign_up->setVnp($_POST['cnp']);
+                    $sign_up->setCnp($_POST['cnp']);
                 } else {
                     return new Response('The data are not enough');
                 }
                 // check for being in same time in other room
-                $entityManager->persist($sign_up);
-                $entityManager->flush();
-                return new Response('You was added at training no: '.$_POST['session']);
+                $mySchedules = $this->getDoctrine()->getRepository(SignUpProgram::class)->findAll();
+                foreach ($mySchedules as $item) {
+                    $IdProgram = $item->getProgramId();
+                    if ($_POST['cnp'] == $IdProgram){
+                        if (overlaping($program, $this->getDoctrine()->getRepository(Program::class)->find($IdProgram))){
+                            return new Response('You are in other session this time!');
+                    };
+                };
+                }
+                 $entityManager->persist($sign_up);
+                 $entityManager->flush();
+                return new Response('You was added at training no: '.$program->getId());
             }
         }
         return new Response('You are not authorized to register for the course!');
